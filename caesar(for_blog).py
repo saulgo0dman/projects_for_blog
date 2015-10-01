@@ -16,7 +16,7 @@ def ask(quest, cond=None):  # cond параметр для проверки на
             else:
                 return int(answer)
         answer = input(quest)
-        if re.search(r'[^a-zA-Z \',.:"?!]', answer):  # проверяем ввод (только буквы и пробел и знаки препинания основные)
+        if re.search(r'[^a-zA-Z \',.:"?!]', answer):  # проверяем ввод (только буквы, пробел и знаки препинания основные)
             print('Only English alph')
             continue
         return answer.lower()
@@ -30,7 +30,7 @@ def cEncode(string, key):
             new_string += i
             continue
         ch = DIC[i] + key
-        if ch > 25:
+        if ch > 25:  # букв в алфавите 26 (у нас счет с нуля)
             ch = ch - 26
         new_string += get_key(DIC, ch)
     return print(new_string)
@@ -40,7 +40,7 @@ def cDecode(string, key):
     '''расшифровка'''
     new_string = ''
     for i in string:
-        if i == ' ':
+        if i not in DIC:
             new_string += i
             continue
         ch = DIC[i] - key
